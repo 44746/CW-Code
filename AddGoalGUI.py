@@ -8,10 +8,10 @@ class AddPlayer(QMainWindow):
 		
 		self.labelM = QLabel("Match: ")
 		self.match = QComboBox()
-		self.match.addItems("G")
+		self.match.addItems("enter data")
 		self.labelP = QLabel("Player: ")
 		self.player = QComboBox()
-		list1 = ["G","A"]
+		list1 = ["enter","data"]
 		self.player.addItems(list1)
 		
 		self.quantity = QLineEdit()
