@@ -1,10 +1,10 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-class SquadList(QMainWindow):
+class MatchList(QMainWindow):
 	def __init__(self):
 		super().__init__()
-		self.setWindowTitle("Squad")
+		self.setWindowTitle("Match")
 		
 		self.table = QTableWidget()
 		self.table.setRowCount(5)
