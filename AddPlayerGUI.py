@@ -1,6 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
+from PlayerDatabase import *
+
 class AddPlayer(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -27,7 +29,7 @@ class AddPlayer(QMainWindow):
 		self.btnAdd = QPushButton("Add")
 		self.btnCancel = QPushButton("Cancel")
 		
-		
+
 		
 		
 		
@@ -66,10 +68,22 @@ class AddPlayer(QMainWindow):
 		self.hlayout2.addWidget(self.btnCancel)
 		
 		self.vlayout3.addLayout(self.hlayout2)
-		
+	
 		
 		
 		
 		self.widget = QWidget()
 		self.widget.setLayout(self.vlayout3)
 		self.setCentralWidget(self.widget)
+	
+		self.btnAdd.clicked.connect(self.btnAdd_pushed)
+	
+	def btnAdd_pushed(self):
+		forename = self.forename.text()
+		surname = self.surname.text()
+		rating = int(self.rating.text())
+		email = self.email.text()
+		position = self.position.text()
+		avaliable = self.avaliable.text()
+		
+		g_database.AddPlayer(forename, surname, rating, email, position, avaliable)

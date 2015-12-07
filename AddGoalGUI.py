@@ -1,6 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
+from PlayerDatabase import *
+
 class AddPlayer(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -10,9 +12,8 @@ class AddPlayer(QMainWindow):
 		self.match = QComboBox()
 		self.match.addItems("enter data")
 		self.labelP = QLabel("Player: ")
-		self.player = QComboBox()
-		list1 = ["enter","data"]
-		self.player.addItems(list1)
+		self.playerCombo = QComboBox()
+		self.PopulatePlayerComboBox()
 		
 		self.quantity = QLineEdit()
 		self.labelQ = QLabel("Quantity: ")
@@ -31,10 +32,9 @@ class AddPlayer(QMainWindow):
 		self.vlayout1.addWidget(self.labelM)
 		self.vlayout2.addWidget(self.match)
 		self.vlayout1.addWidget(self.labelP)
-		self.vlayout2.addWidget(self.player)
+		self.vlayout2.addWidget(self.playerCombo)
 		self.vlayout1.addWidget(self.labelQ)
 		self.vlayout2.addWidget(self.quantity)
-		
 		
 		self.hlayout1.addLayout(self.vlayout1)
 		self.hlayout1.addLayout(self.vlayout2)
@@ -46,9 +46,14 @@ class AddPlayer(QMainWindow):
 		self.vlayout3.addLayout(self.hlayout1)
 		self.vlayout3.addLayout(self.hlayout2)
 		
-		
-		
-		
 		self.widget = QWidget()
 		self.widget.setLayout(self.vlayout3)
 		self.setCentralWidget(self.widget)
+
+	def PopulatePlayerComboBox(self):
+		players = g_database.GetAllPlayers()
+		for player in players:
+			self.playerCombo.addItem(player[2])
+		
+		
+		
