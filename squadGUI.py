@@ -8,13 +8,25 @@ class SquadList(QMainWindow):
 		super().__init__()
 		self.setWindowTitle("Squad")
 		
+		players = g_database.GetAllPlayers()
+		counter = 0
+		for player in players:
+			counter = counter +1 
+			
 		self.table = QTableWidget()
-		self.table.setRowCount(6)
+		self.table.setRowCount(counter)
 		self.table.setColumnCount(7)
 	
 		self.table.setHorizontalHeaderLabels(["Id","Forename","Surname","Rating","Email","Position","Avaliable"])
 		
-		self.table.setItem(0, 0, QTableWidgetItem("Hi"))
+		
+		row = -1
+		for player in players:
+			column = 0
+			row = row+1
+			for field in player:
+				self.table.setItem(row, column, QTableWidgetItem(str(field)))
+				column = column +1
 		
 		self.layout = QVBoxLayout()
 		self.layout.addWidget(self.table)

@@ -1,6 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
+from PlayerDatabase import *
+
 class AddPlayer(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -8,10 +10,11 @@ class AddPlayer(QMainWindow):
 		
 		self.date = QLineEdit()
 		self.labelD = QLabel("Date: ")
-		self.result = QLineEdit()
-		self.labelR = QLabel("Result: ")
 		self.opposition = QLineEdit()
 		self.labelO = QLabel("Opposition: ")
+		self.result = QLineEdit()
+		self.labelR = QLabel("Result: ")
+		
 		
 		self.btnAdd = QPushButton("Add")
 		self.btnCancel = QPushButton("Cancel")
@@ -46,4 +49,14 @@ class AddPlayer(QMainWindow):
 		self.widget.setLayout(self.vlayout3)
 		self.setCentralWidget(self.widget)
 		
+		
+		self.btnAdd.clicked.connect(self.btnAdd_pushed)
+	
+	def btnAdd_pushed(self):
+		print("AAA")
+		date = self.date.text()
+		opposition=self.opposition.text()
+		result = self.result.text()
+		
+		g_database.AddMatch(date,opposition,result)
 		

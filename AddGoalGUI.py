@@ -7,13 +7,14 @@ class AddPlayer(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		self.setWindowTitle("Add Goal")
-		
+	## Widget setting
 		self.labelM = QLabel("Match: ")
-		self.match = QComboBox()
-		self.match.addItems("enter data")
+		self.matchCombo = QComboBox()
+		self.PopulateMatchComboBox()
 		self.labelP = QLabel("Player: ")
 		self.playerCombo = QComboBox()
 		self.PopulatePlayerComboBox()
+		
 		
 		self.quantity = QLineEdit()
 		self.labelQ = QLabel("Quantity: ")
@@ -30,7 +31,7 @@ class AddPlayer(QMainWindow):
 		
 		
 		self.vlayout1.addWidget(self.labelM)
-		self.vlayout2.addWidget(self.match)
+		self.vlayout2.addWidget(self.matchCombo)
 		self.vlayout1.addWidget(self.labelP)
 		self.vlayout2.addWidget(self.playerCombo)
 		self.vlayout1.addWidget(self.labelQ)
@@ -49,11 +50,20 @@ class AddPlayer(QMainWindow):
 		self.widget = QWidget()
 		self.widget.setLayout(self.vlayout3)
 		self.setCentralWidget(self.widget)
-
+	##Widget setting end
+	
 	def PopulatePlayerComboBox(self):
 		players = g_database.GetAllPlayers()
 		for player in players:
 			self.playerCombo.addItem(player[2])
-		
-		
-		
+			
+	def PopulateMatchComboBox(self):
+		matches = g_database.GetAllMatches()
+		for match in matches:
+			print(match)
+			self.matchCombo.addItem(match[2])
+			
+	##def GetMatchId(self, match_name):
+		for match in matches:
+			if (match_name == match[2])
+				return match[0]
