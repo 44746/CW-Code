@@ -4,8 +4,11 @@ from PyQt4.QtCore import *
 from PlayerDatabase import *
 
 class AddPlayer(QMainWindow):
-	def __init__(self):
+	def __init__(self, parent):
 		super().__init__()
+		
+		self.parent = parent
+		
 		self.setWindowTitle("Add Player")
 		
 		self.forename = QLineEdit()
@@ -28,12 +31,6 @@ class AddPlayer(QMainWindow):
 		
 		self.btnAdd = QPushButton("Add")
 		self.btnCancel = QPushButton("Cancel")
-		
-
-		
-		
-		
-		
 		
 		self.hlayout1 = QHBoxLayout()
 		self.vlayout1 = QVBoxLayout()
@@ -77,6 +74,8 @@ class AddPlayer(QMainWindow):
 		self.setCentralWidget(self.widget)
 	
 		self.btnAdd.clicked.connect(self.btnAdd_pushed)
+		self.btnCancel.clicked.connect(self.btnCancel_pushed)
+		
 	
 	def btnAdd_pushed(self):
 		forename = self.forename.text()
@@ -87,3 +86,10 @@ class AddPlayer(QMainWindow):
 		avaliable = self.avaliable.text()
 		
 		g_database.AddPlayer(forename, surname, rating, email, position, avaliable)
+		self.parent.show()
+		self.parent.refreshTable()
+		self.close()
+
+	def btnCancel_pushed(self):
+		self.parent.show()
+		self.close()

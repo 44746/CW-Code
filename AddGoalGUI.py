@@ -3,7 +3,7 @@ from PyQt4.QtCore import *
 
 from PlayerDatabase import *
 
-class AddPlayer(QMainWindow):
+class AddGoal(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		self.setWindowTitle("Add Goal")
@@ -63,7 +63,3 @@ class AddPlayer(QMainWindow):
 			print(match)
 			self.matchCombo.addItem(match[2])
 			
-	##def GetMatchId(self, match_name):
-		for match in matches:
-			if (match_name == match[2])
-				return match[0]

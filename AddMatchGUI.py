@@ -3,9 +3,10 @@ from PyQt4.QtCore import *
 
 from PlayerDatabase import *
 
-class AddPlayer(QMainWindow):
-	def __init__(self):
+class AddMatch(QMainWindow):
+	def __init__(self,parent):
 		super().__init__()
+		self.parent = parent
 		self.setWindowTitle("Add Match")
 		
 		self.date = QLineEdit()
@@ -51,12 +52,21 @@ class AddPlayer(QMainWindow):
 		
 		
 		self.btnAdd.clicked.connect(self.btnAdd_pushed)
+		self.btnCancel.clicked.connect(self.btnCancel_pushed)
 	
 	def btnAdd_pushed(self):
-		print("AAA")
+		
 		date = self.date.text()
 		opposition=self.opposition.text()
 		result = self.result.text()
-		
 		g_database.AddMatch(date,opposition,result)
 		
+		self.parent.show
+		self.parent.refreshTable()
+		self.close()
+		
+	def btnCancel_pushed(self):
+		self.parent.show()
+		self.close()
+
+	

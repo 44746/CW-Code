@@ -1,21 +1,57 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+from PlayerDatabase import *
+from AddGoalGUI import *
 
 class GoalList(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		self.setWindowTitle("Goals")
+		self.btnNew = QPushButton("New Goal")
+		self.btnHome = QPushButton("Home")
+		
+		
+		
 		
 		self.table = QTableWidget()
-		self.table.setRowCount(5)
-		self.table.setColumnCount(5)
+		self.refreshTable()
+	
+		self.btnNew.clicked.connect(self.btnNew_pushed)
+		self.btnHome.clicked.connect(self.btnHome_pushed)
 		
-		self.table.setItem(0, 0, QTableWidgetItem("Hi"))
+		self.VlayoutMAIN = QVBoxLayout()
+		self.Vlayout = QVBoxLayout()
+		self.Hlayout= QHBoxLayout()
 		
-		self.layout = QVBoxLayout()
-		self.layout.addWidget(self.table)
-		
+		self.Hlayout.addWidget(self.btnNew)
+		self.Hlayout.addWidget(self.btnHome)
+		self.Vlayout.addWidget(self.table)
+
+		self.VlayoutMAIN.addLayout(self.Vlayout)
+		self.VlayoutMAIN.addLayout(self.Hlayout)
 				
 		self.widget = QWidget()
-		self.widget.setLayout(self.layout)
+		self.widget.setLayout(self.VlayoutMAIN)
 		self.setCentralWidget(self.widget)
+		
+	def btnNew_pushed(self):
+		self.new_goal = AddGoal()
+		self.new_goal.show()
+		self.new_goal.raise_()
+		self.hide()
+		
+	def btnHome_pushed(self):
+		print("A")
+		
+		
+	def refreshTable(self):
+		Goals = g_database.GetAllGoals()
+		self.table.setRowCount(len(Goals))
+		self.table.setColumnCount(4)
+		row = -1
+		for Goal in Goals:
+			column = 0
+			row = row+1
+			for field in Goal:
+				self.table.setItem(row, column, QTableWidgetItem(str(field)))
+				column = column +1

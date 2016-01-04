@@ -27,11 +27,12 @@ class Database:
 			 primary Key(MatchID))"""
 		self.execute_sql(sql)
 		
-		sql = """create table if not exists Goals
+		sql = """create table if not exists Goal
 				(GoalID integer,
 				MatchID integer,
 				PlayerID integer,
 				Quantity integer,
+				
 				
 				primary Key(GoalID))"""
 		self.execute_sql(sql)
@@ -49,6 +50,13 @@ class Database:
 			Matches = cursor.fetchall()
 			return Matches
 	
+	def GetAllGoals(self):
+		with sqlite3.connect(self._db_name) as db:
+			cursor = db.cursor()
+			cursor.execute("select * from Goal")
+			Goals = cursor.fetchall()
+			return Goals
+	
 	def GetAllPlayers(self):
 		with sqlite3.connect(self._db_name) as db:
 			cursor = db.cursor()
@@ -59,7 +67,7 @@ class Database:
 	def AddMatch(self,date,opposition, result):
 		with sqlite3.connect(self._db_name) as db:
 				cursor = db.cursor()
-				sql = "insert into Match(date,opposition,result) values ((SELECT max(MatchID) FROM Match)+1,'{0}', '{1}', '{2}')".format(date,opposition,result)
+				sql = "insert into Match(MatchID,date,opposition,result) values ((SELECT max(MatchID) FROM Match)+1,'{0}', '{1}', '{2}')".format(date,opposition,result)
 				cursor.execute(sql)
 				db.commit()
 			
@@ -73,4 +81,5 @@ class Database:
 			cursor.execute(sql)
 			db.commit()
 			
+	
 g_database = Database("Player_Database.db")
